@@ -99,7 +99,7 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     row_counter <- row_counter + 1
   }
   if (sd) {
-    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), round(sd(x), 4), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), round(sd(x,na.rm = TRUE), 4), NA))
     row_counter <- row_counter + 1
   }
   if (kurtosis) {

@@ -18,25 +18,25 @@ data("Titanic")
 data("airquality")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  desc_stat(iris)
+#  desc_stat(mtcars)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  desc_stat(mtcars)
+#  desc_stat(iris)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  desc_stat(airquality)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  desc_stat(mtcars,kurtosis = F,skewness = F,jarque = F)
+#  desc_stat(mtcars,max = F, min=F, sd=F,kurtosis = T,skewness = T,shapiro = T,anderson = T,lilliefors = T, jarque = T)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  hist_plot(iris,subplot=T,nrow=2)
+#  hist_plot(iris,subplot=F)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  dens_plot(iris,subplot=T,nrow=2)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  qq_plot(iris)
+#  qq_plot(iris,subplot = T)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  bar_plot(iris)
@@ -63,14 +63,14 @@ data("airquality")
 ## ----eval=FALSE---------------------------------------------------------------
 #  missing_values_plot(airquality)
 
-## ----eval=FALSE---------------------------------------------------------------
-#  impute_missing(airquality,method='mean')
+## ----results='hide'-----------------------------------------------------------
+impute_missing(airquality,method='mean')
 
-## ----eval=FALSE---------------------------------------------------------------
-#  impute_missing(airquality,method='mode')
-#  impute_missing(airquality,method='median')
-#  impute_missing(airquality,method='locf')
-#  impute_missing(airquality,method='knn',k=5)
+## ----results='hide'-----------------------------------------------------------
+impute_missing(airquality,method='mode')
+impute_missing(airquality,method='median')
+impute_missing(airquality,method='locf')
+impute_missing(airquality,method='knn',k=5)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  pca(mtcars,variance_threshold = 0.9,scale=T)

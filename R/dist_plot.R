@@ -11,7 +11,8 @@
 #' @param subplot A logical argument (default: FALSE) indicating whether to create subplots for each variable.
 #' @param nrow Number of rows for subplots (used when subplot is TRUE, default: 2).
 #' @param margin Margin for subplots (used when subplot is TRUE, default: 0.1).
-#'
+#' @param html Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE. 
+
 #' @return A list of histogram plot.
 #'
 #' @examples
@@ -24,7 +25,7 @@
 #' @importFrom plotly style
 #' @importFrom plotly layout
 #' @export
-hist_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subplot = FALSE, nrow = 2, margin = 0.1) {
+hist_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subplot = FALSE, nrow = 2, margin = 0.1,html=FALSE) {
   numerical <- names(Filter(is.numeric, data))
   if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
   
@@ -38,7 +39,8 @@ hist_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subp
     
     ggplotly(plot, tooltip = "all", dynamicTicks = TRUE) %>% style(hoverinfo = "text") 
   })
-  gg_list <- do.call(htmltools::tagList, gg_list)
+  
+  if (html) gg_list <- do.call(htmltools::tagList, gg_list)
   
   if (subplot) {
     fig <- plotly::subplot(gg_list, nrows = nrow, titleX = TRUE, titleY = FALSE, margin = margin) %>%
@@ -65,7 +67,8 @@ hist_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subp
 #' @param subplot A logical argument (default: FALSE) indicating whether to create subplots.
 #' @param nrow Number of rows for subplots (if subplot is TRUE, default: 2).
 #' @param margin Margin for subplots (if subplot is TRUE, default: 0.1).
-#'
+#' @param html Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE. 
+
 #' @return A list of density plots.
 #'
 #' @examples
@@ -79,7 +82,7 @@ hist_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subp
 #' @importFrom plotly style
 #' @importFrom plotly layout
 #' @export
-dens_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subplot = FALSE, nrow = 2, margin = 0.1) {
+dens_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subplot = FALSE, nrow = 2, margin = 0.1,html=FALSE) {
   numerical <- names(Filter(is.numeric, data))
   if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
   
@@ -93,7 +96,7 @@ dens_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subp
       plotly::style(hoverinfo = "text") 
   })
   
-  gg_list <- do.call(htmltools::tagList, gg_list)
+  if (html) gg_list <- do.call(htmltools::tagList, gg_list)
   
   if (subplot) {
     fig <- plotly::subplot(gg_list, nrows = nrow, titleX = TRUE, titleY = FALSE, margin = margin) %>%
@@ -119,7 +122,8 @@ dens_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subp
 #' @param subplot A logical argument (default: FALSE) indicating whether to create subplots.
 #' @param nrow Number of rows for subplots (if subplot is TRUE, default: 2).
 #' @param margin Margin for subplots (if subplot is TRUE, default: 0.1).
-#'
+#' @param html Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE. 
+
 #' @return A list of QQ plots.
 #'
 #' @examples
@@ -133,7 +137,7 @@ dens_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subp
 #' @importFrom plotly style
 #' @importFrom plotly layout
 #' @export
-qq_plot <- function(data, color = "skyblue", subplot = FALSE, nrow = 2, margin = 0.1) {
+qq_plot <- function(data, color = "skyblue", subplot = FALSE, nrow = 2, margin = 0.1,html=FALSE) {
   numerical <- names(Filter(is.numeric, data))
   if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
   
@@ -149,7 +153,7 @@ qq_plot <- function(data, color = "skyblue", subplot = FALSE, nrow = 2, margin =
       plotly::layout(title = list(text = paste(var, "QQ Plot")))
   })
   
-  gg_list <- do.call(htmltools::tagList, gg_list)
+  if (html) gg_list <- do.call(htmltools::tagList, gg_list)
   
   if (subplot) {
     fig <- plotly::subplot(gg_list, nrows = nrow, titleX = TRUE, titleY = FALSE, margin = margin) %>%
@@ -179,7 +183,8 @@ qq_plot <- function(data, color = "skyblue", subplot = FALSE, nrow = 2, margin =
 #' @param subplot A logical argument (default: FALSE) indicating whether to create subplots.
 #' @param nrow Number of rows for subplots (if subplot is TRUE, default: 2).
 #' @param margin Margin for subplots (if subplot is TRUE, default: 0.1).
-#'
+#' @param html Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE. 
+
 #' @return A list of bar plots.
 #'
 #' @examples
@@ -193,7 +198,7 @@ qq_plot <- function(data, color = "skyblue", subplot = FALSE, nrow = 2, margin =
 #' @importFrom plotly style
 #' @importFrom plotly layout
 #' @export
-bar_plot <- function(data, fill = "skyblue", color = "black", width = 0.7, subplot = FALSE, nrow = 2, margin = 0.1) {
+bar_plot <- function(data, fill = "skyblue", color = "black", width = 0.7, subplot = FALSE, nrow = 2, margin = 0.1,html=FALSE) {
   categories = frequencies = NULL
   categorical <- names(Filter(function(x) is.factor(x) || is.character(x), data))
   if (length(categorical) == 0) stop("There is no categorical variable in the dataset")
@@ -212,7 +217,7 @@ bar_plot <- function(data, fill = "skyblue", color = "black", width = 0.7, subpl
       plotly::layout(title = list(text = paste(cat, "Bar Plot")))
   })
   
-  gg_list <- do.call(htmltools::tagList, gg_list)
+  if (html) gg_list <- do.call(htmltools::tagList, gg_list)
   
   if (subplot) {
     fig <- plotly::subplot(gg_list, nrows = nrow, titleX = TRUE, titleY = FALSE, margin = margin) %>%
@@ -234,7 +239,7 @@ bar_plot <- function(data, fill = "skyblue", color = "black", width = 0.7, subpl
 #' frequencies of different levels within each variable. 
 #' 
 #' @param data The input data frame containing categorical variables.
-#'
+#' @param html Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE. 
 #' @return A list of pie charts.
 #'
 #' @examples
@@ -245,7 +250,7 @@ bar_plot <- function(data, fill = "skyblue", color = "black", width = 0.7, subpl
 #' @importFrom plotly plot_ly
 #' @importFrom plotly layout
 #' @export
-pie_plot <- function(data) {
+pie_plot <- function(data,html=FALSE) {
   categorical <- names(Filter(function(x) is.factor(x) || is.character(x), data))
   if (length(categorical) == 0) stop("There is no categorical variable in the dataset")
   
@@ -259,7 +264,7 @@ pie_plot <- function(data) {
       layout(title = paste(cat, "Pie Chart"))
     
   })
-  gg_list <- do.call(htmltools::tagList,gg_list)
+  if (html) gg_list <- do.call(htmltools::tagList,gg_list)
   return(gg_list)
 }
 

@@ -19,8 +19,7 @@ vignette: >
   - [Principle Component Analysis](#principle-component-analysis)
   
 # Introduction
-Hi everyone, this page is to introduce the package AnalysisLin, which is my personal package for exploratory data analysis. You can find the source package on my Github: [https://github.com/Zhiwei2799/AnalysisLin](https://github.com/Zhiwei2799/AnalysisLin)
-The package has been uploaded to CRAN, and it can be installed either via CRAN or GitHub. It includes several useful functions designed to assist with exploratory data analysis (EDA). These functions are based on my learnings throughout my academic years, and I personally use them for EDA.
+Hi everyone, this page is to introduce the package AnalysisLin, which is my personal package for exploratory data analysis. It includes several useful functions designed to assist with exploratory data analysis (EDA). These functions are based on my learnings throughout my academic years, and I personally use them for EDA.
 
 Table below summarize the functions that would be going over in this page
 ```{r,echo=FALSE}
@@ -79,11 +78,11 @@ First function in package is desc_stat. This function computes numerous useful s
 - **Jarque-Bera Test P-value**: Checks whether data have the skewness and kurtosis matching a normal distribution.
 
 ```{r,eval=FALSE}
-desc_stat(iris)
+desc_stat(mtcars)
 ```
 
 ```{r,eval=FALSE}
-desc_stat(mtcars)
+desc_stat(iris)
 ```
 
 ```{r,eval=FALSE}
@@ -94,17 +93,17 @@ desc_stat(airquality)
 
 These metrics provide valuable insights into the dataset in a deep level. If you don't want any of these metrics to be computed, you can set them to `FALSE`. This way, the unwanted metrics won't appear in the output.
 
-For example, if you don't want kurtosis,skewness and jarque_pvalue for mtcar dataset:
+Furthermore, desc_stat() can also compute Kurtosis, Skewness, Shapiro-Wilk Test, Anderson-Darling Test, Lilliefors Test,Jarque-Bera Test
 ```{r,eval=FALSE}
-desc_stat(mtcars,kurtosis = F,skewness = F,jarque = F)
+desc_stat(mtcars,max = F, min=F, sd=F,kurtosis = T,skewness = T,shapiro = T,anderson = T,lilliefors = T, jarque = T)
 ```
 ## Data Visualization
 ### Numeric Plot 
 To visualize histogram for all numerical variables
 ```{r,eval=FALSE}
-hist_plot(iris,subplot=T,nrow=2)
+hist_plot(iris,subplot=F)
 ```
-To visualize desnity for all numerical variables
+To visualize desnity for all numerical variables in two rows of subplots
 ```{r,eval=FALSE}
 dens_plot(iris,subplot=T,nrow=2)
 ```
@@ -112,9 +111,8 @@ dens_plot(iris,subplot=T,nrow=2)
 A Quantile-Quantile (QQ) plot is a graphical tool used to assess whether a dataset follows a normal distribution. It compares the quantiles of the observed data to the quantiles of the expected distribution.
 
 if you want to check the normality for numerical variables by drawing QQ plot.
-
 ```{r,eval=FALSE}
-qq_plot(iris)
+qq_plot(iris,subplot = T)
 ```
 
 ### Categorical Plot 
@@ -124,7 +122,6 @@ bar_plot(iris)
 ```
 
 if you want pie chart:
-
 ```{r,eval=FALSE}
 pie_plot(iris)
 ```
@@ -174,7 +171,7 @@ Imputing mssing value is a way to get more information from a data with missing 
 
 - **mean**: use mean value to replace missing value.  
 
-```{r,eval=FALSE}
+```{r,results='hide'}
 impute_missing(airquality,method='mean')
 ```
 
@@ -185,7 +182,7 @@ impute_missing(airquality,method='mean')
 - **locf**: use last observation value to replace missing value.  
 
 - **knn**: use k-nearest nerighbor to replace missing value, k needs to be chosen.   
-```{r,eval=FALSE}
+```{r,results='hide'}
 impute_missing(airquality,method='mode')
 impute_missing(airquality,method='median')
 impute_missing(airquality,method='locf')
@@ -195,11 +192,9 @@ impute_missing(airquality,method='knn',k=5)
 ### Principle Component Analysis
 Principle Component Analysis can help you to reduce the number of variables in a dataset.
 To perform and visualize PCA on some selected variables
-
 ```{r,eval=FALSE}
 pca(mtcars,variance_threshold = 0.9,scale=T)
 ```
-
 to visualize the scree plot and biplot 
 ```{r,eval=FALSE}
 pca(mtcars,variance_threshold = 0.9,scale=TRUE,scree_plot=TRUE,biplot=TRUE)

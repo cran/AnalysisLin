@@ -17,6 +17,7 @@
 #' @param corr_plot Generate a correlation matrix plot, default is false.
 #' @param sig.level Significant level. Default is 0.01.
 #' @param highlight Highlight p-value(s) that is less than sig.level, default is FALSE
+#' @param html Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE. 
 #' 
 #' @return A data frame which contains row names, column names, correlation coefficients, and p-values.
 #' @return A plot of the correlation if corrplot is set to be true.
@@ -32,8 +33,8 @@
 #' @importFrom plotly colorbar
 #' 
 #' @export
-corr_matrix <- function(data, type = 'pearson', corr_plot = FALSE, sig.level = 0.01,highlight=FALSE) {
-  result <- list()
+corr_matrix <- function(data, type = 'pearson', corr_plot = FALSE, sig.level = 0.01,highlight=FALSE,html=FALSE) {
+  if (html) result <- htmltools::tagList() else result <- list()
   
   cormat <- Hmisc::rcorr(as.matrix(data), type = type)$r
   
@@ -72,8 +73,6 @@ corr_matrix <- function(data, type = 'pearson', corr_plot = FALSE, sig.level = 0
         backgroundColor = styleInterval(0.05, c('yellow','transparent'))
       )
   }
-  
-  
   
   cormat[upper.tri(cormat)] <- NA
   pmat[upper.tri(cormat)] <- NA

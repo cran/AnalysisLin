@@ -8,7 +8,8 @@
 #' @param df The input data frame.
 #' @param percentage A logical argument (default: TRUE) to generate a percentage plot.
 #' @param row A logical argument (default: TRUE) to generate a row plot.
-#'
+#' @param html Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE. 
+
 #' @return A list of plots, including a percentage plot and/or a row plot.
 #'
 #' @examples
@@ -22,7 +23,7 @@
 #' @importFrom grDevices colors
 #' @export
 
-missing_values_plot <- function(df, percentage = TRUE, row = TRUE) {
+missing_values_plot <- function(df, percentage = TRUE, row = TRUE, html=FALSE) {
   variable = missing_percentage = key = id = isna = NULL
   if (all(!is.na(df))) {
     return("Data contains no missing values.")
@@ -56,9 +57,7 @@ missing_values_plot <- function(df, percentage = TRUE, row = TRUE) {
       coord_flip() +
       theme_minimal()
   }
-  end_time <- Sys.time()
-  
-  
+
   if (percentage && row) {
     plot_list <- list(ggplotly(percentage_plot), ggplotly(row_plot))
     result <-plot_list
@@ -67,8 +66,8 @@ missing_values_plot <- function(df, percentage = TRUE, row = TRUE) {
   } else if (row) {
     result <- ggplotly(row_plot)
   }
-
-  return(htmltools::tagList(result))
+  if (html) result <- htmltools::tagList(result)
+  return(result)
   
 }
 

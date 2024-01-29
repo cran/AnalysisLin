@@ -4,7 +4,7 @@
 \alias{missing_values_plot}
 \title{Missing Values Plot}
 \usage{
-missing_values_plot(df, percentage = TRUE, row = TRUE)
+missing_values_plot(df, percentage = TRUE, row = TRUE, html = FALSE)
 }
 \arguments{
 \item{df}{The input data frame.}
@@ -12,6 +12,8 @@ missing_values_plot(df, percentage = TRUE, row = TRUE)
 \item{percentage}{A logical argument (default: TRUE) to generate a percentage plot.}
 
 \item{row}{A logical argument (default: TRUE) to generate a row plot.}
+
+\item{html}{Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE.}
 }
 \value{
 A list of plots, including a percentage plot and/or a row plot.

@@ -18,6 +18,7 @@
 #' @param length_scale Scaling factor for adjusting the length of vectors in the biplot (default: 1).
 #' @param scree_legend Logical, indicating whether to show legend in scree plot (default: True).
 #' @param scree_legend_pos A vector c(x, y) to adjust the position of the legend.
+#' @param html Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE. 
 #' @return 
 #' A list containing:
 #'  - summary_table: A matrix summarizing eigenvalues and cumulative variance explained.
@@ -48,7 +49,8 @@ pca <- function(data,
                 groups = NULL,
                 length_scale = 1,
                 scree_legend = TRUE,
-                scree_legend_pos = c(0.7,0.5)) {
+                scree_legend_pos = c(0.7,0.5),
+                html = FALSE) {
   x = y = cum_y = cum_label = xvar = yvar = varname = angle = hjust = NULL
   pca_result <- prcomp(data, center = center, scale. = scale)
   eigenvalue <- (pca_result$sdev)^2
@@ -62,7 +64,7 @@ pca <- function(data,
   selected_eigenvector <- eigenvector[, 1:num_components]
   selected_score <- score[, 1:num_components]
   
-  result <- htmltools::tagList()
+  if (html) result <- htmltools::tagList() else result <- list()
   
   summary_table <- matrix(
     c(selected_eigenvalue, 

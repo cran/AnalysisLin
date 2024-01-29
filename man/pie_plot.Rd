@@ -4,10 +4,12 @@
 \alias{pie_plot}
 \title{Pie Plots for Categorical Variables}
 \usage{
-pie_plot(data)
+pie_plot(data, html = FALSE)
 }
 \arguments{
 \item{data}{The input data frame containing categorical variables.}
+
+\item{html}{Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE.}
 }
 \value{
 A list of pie charts.

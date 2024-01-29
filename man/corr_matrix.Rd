@@ -9,7 +9,8 @@ corr_matrix(
   type = "pearson",
   corr_plot = FALSE,
   sig.level = 0.01,
-  highlight = FALSE
+  highlight = FALSE,
+  html = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ corr_matrix(
 \item{sig.level}{Significant level. Default is 0.01.}
 
 \item{highlight}{Highlight p-value(s) that is less than sig.level, default is FALSE}
+
+\item{html}{Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE.}
 }
 \value{
 A data frame which contains row names, column names, correlation coefficients, and p-values.

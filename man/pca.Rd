@@ -15,7 +15,8 @@ pca(
   groups = NULL,
   length_scale = 1,
   scree_legend = TRUE,
-  scree_legend_pos = c(0.7, 0.5)
+  scree_legend_pos = c(0.7, 0.5),
+  html = FALSE
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ pca(
 \item{scree_legend}{Logical, indicating whether to show legend in scree plot (default: True).}
 
 \item{scree_legend_pos}{A vector c(x, y) to adjust the position of the legend.}
+
+\item{html}{Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE.}
 }
 \value{
 A list containing:

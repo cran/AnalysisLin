@@ -11,7 +11,8 @@ hist_plot(
   alpha = 0.7,
   subplot = FALSE,
   nrow = 2,
-  margin = 0.1
+  margin = 0.1,
+  html = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ hist_plot(
 \item{nrow}{Number of rows for subplots (used when subplot is TRUE, default: 2).}
 
 \item{margin}{Margin for subplots (used when subplot is TRUE, default: 0.1).}
+
+\item{html}{Whether the output should be in HTML format,used when knitting into HTML. Default is FALSE.}
 }
 \value{
 A list of histogram plot.
