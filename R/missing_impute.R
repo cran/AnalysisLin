@@ -68,7 +68,11 @@ impute_locf <- function(x) {
 impute_mode <- function(x) {
   tbl <- table(x)
   modes <- tbl[tbl == max(tbl)]
-  return(as.numeric(names(modes)))
+  mode_values <- as.numeric(names(modes))
+  if (length(mode_values) != sum(is.na(x))) {
+    mode_values <- rep(mode_values, length.out = sum(is.na(x)))
+}
+  return(mode_values)
 }
 
 impute_knn <- function(data, k) {
